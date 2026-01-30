@@ -1,0 +1,30 @@
+name: CI com Docker
+
+on:
+    push:
+        branches: [main]
+
+jobs:
+    build-test:
+        runs-on: ubuntu-latest
+
+        steps:
+
+            - name: Checkout de Código
+              uses: actions/checkout@v3
+            
+            - name: Build da Imagem
+              run: docker build -t aplicacao-ci-cd:1.0 .
+            
+            - name: Executar da Imagem
+              run: docker run -d -p 3000:3000 aplicacao-ci-cd:1.0
+
+            - name: Testar aplicacao
+              run: chmod +x test.sh && sleep 5 && ./test.sh
+
+
+            
+            
+            
+
+            
